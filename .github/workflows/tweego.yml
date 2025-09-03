@@ -25,12 +25,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
 
-      # Prove we're running the latest file
-      - name: Debug (early)
-        run: |
-          echo "Commit: $GITHUB_SHA"
-          ls -la
-
       - name: Install Tweego
         shell: bash
         run: |
@@ -41,7 +35,7 @@ jobs:
           install -m 755 "$(find /tmp/tweego -type f -name tweego -print -quit)" "$HOME/bin/tweego"
           echo "$HOME/bin" >> "$GITHUB_PATH"
 
-      # Put SugarCube where Tweego will actually look: ./storyformats/sugarcube-2
+      # Put SugarCube in both the repo and next to the binary (both are default search dirs)
       - name: Fetch SugarCube storyformat
         shell: bash
         run: |
@@ -53,7 +47,10 @@ jobs:
           SC_DIR="$(find /tmp/sczip -type d -name 'sugarcube-2' -print -quit)"
           test -n "$SC_DIR"
           cp -a "$SC_DIR" storyformats/
+          mkdir -p "$HOME/bin/storyformats"
+          cp -a "$SC_DIR" "$HOME/bin/storyformats/"
           test -f storyformats/sugarcube-2/format.js
+          test -f "$HOME/bin/storyformats/sugarcube-2/format.js"
 
       - name: Debug layout
         run: |
@@ -61,24 +58,20 @@ jobs:
           ls -la
           echo "--- storyformats ---"
           ls -la storyformats
-          echo "--- sugarcube-2 ---"
-          ls -la storyformats/sugarcube-2
+          echo "--- $HOME/bin/storyformats ---"
+          ls -la "$HOME/bin/storyformats"
 
-      # Now it's safe to invoke Tweego (search dirs exist)
-      - name: Verify Tweego & list formats
-        shell: bash
-        run: |
-          export TWEEGO_PATH="$(pwd)/storyformats"
-          tweego --version
-          tweego --list-formats | sed -n '1,120p'
-
+      # Build directly (no --list-formats) with explicit format dirs
       - name: Build story → build/index.html
         shell: bash
         run: |
           set -euxo pipefail
-          export TWEEGO_PATH="$(pwd)/storyformats"
           mkdir -p build
-          tweego -f sugarcube-2 -o build/index.html src
+          # Tweego searches current dir storyformats, program dir storyformats, and TWEEGO_PATH entries.
+          export TWEEGO_PATH="$(pwd)/storyformats:$HOME/bin/storyformats"
+          tweego -f sugarcube-2 \
+                 --format-dir "$TWEEGO_PATH" \
+                 -o build/index.html src
           test -s build/index.html
 
       - name: Upload Pages artifact
