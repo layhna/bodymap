@@ -3,10 +3,6 @@ name: Build & Publish Twine (Tweego)
 on:
   push:
     branches: [ main ]
-    paths:
-      - "src/**"
-      - "formats/**"
-      - ".github/workflows/**"
   workflow_dispatch:
 
 permissions:
@@ -31,7 +27,13 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      # --- Install Tweego (PATH fix) ---
+      # Early sanity check — prove we’re on the right commit
+      - name: Debug (early)
+        run: |
+          echo "Commit: $GITHUB_SHA"
+          echo "Repo contents at start:"
+          ls -la
+
       - name: Install Tweego
         shell: bash
         run: |
@@ -45,33 +47,37 @@ jobs:
       - name: Verify Tweego
         run: tweego --version
 
-      # --- Get SugarCube into ./formats/sugarcube-2 ---
+      # Fetch SugarCube and ensure it ends up exactly at formats/sugarcube-2
       - name: Fetch SugarCube storyformat
         shell: bash
         run: |
           set -euxo pipefail
+          rm -rf formats
           mkdir -p formats
           curl -fsSL -o /tmp/sugarcube.zip "https://www.motoslave.net/sugarcube/download.php/2/sugarcube-${SUGARCUBE_VERSION}-for-twine-2.1-local.zip"
-          unzip -q /tmp/sugarcube.zip -d formats
+          unzip -q /tmp/sugarcube.zip -d /tmp/sczip
+          SC_DIR="$(find /tmp/sczip -type d -name 'sugarcube-2' -print -quit)"
+          test -n "$SC_DIR"
+          cp -a "$SC_DIR" formats/
           test -f formats/sugarcube-2/format.js
 
-      # --- Debug: show what we have ---
       - name: Debug layout
         run: |
           echo "PWD=$(pwd)"
+          echo "--- repo root ---"
           ls -la
-          echo "formats/"
+          echo "--- formats ---"
           ls -la formats
-          echo "formats/sugarcube-2/"
-          ls -la formats/sugarcube-2 || true
+          echo "--- formats/sugarcube-2 ---"
+          ls -la formats/sugarcube-2
 
-      # --- Build with absolute format path + env ---
-      - name: Build story (→ build/index.html)
+      - name: Build story → build/index.html
         shell: bash
         run: |
           set -euxo pipefail
           mkdir -p build
           export TWEEGO_FORMATS="$(pwd)/formats"
+          echo "TWEEGO_FORMATS=$TWEEGO_FORMATS"
           tweego -f sugarcube-2 --format-dir "$TWEEGO_FORMATS" \
                  -o build/index.html src
           test -s build/index.html
