@@ -1,0 +1,73 @@
+name: Build & Publish Twine (Tweego)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "src/**"
+      - "formats/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+# Required for GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  TWEEGO_VERSION: "2.1.1"
+  SUGARCUBE_VERSION: "2.37.3"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install Tweego
+        run: |
+          mkdir -p "$HOME/bin"
+          curl -fsSL -o tweego.zip "https://github.com/tmedwards/tweego/releases/download/v${TWEEGO_VERSION}/tweego-${TWEEGO_VERSION}-linux-x64.zip"
+          unzip -q tweego.zip -d "$HOME/bin"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+          tweego --version
+
+      - name: Fetch SugarCube storyformat
+        run: |
+          mkdir -p formats
+          curl -fsSL -o sugarcube.zip "https://www.motoslave.net/sugarcube/download.php/2/sugarcube-${SUGARCUBE_VERSION}-for-twine-2.1-local.zip"
+          unzip -q sugarcube.zip -d formats
+          test -f formats/sugarcube-2/format.js
+
+      - name: Build story (→ build/index.html)
+        run: |
+          mkdir -p build
+          tweego -f sugarcube-2 --format-dir formats \
+                 -o build/index.html src
+          test -s build/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
