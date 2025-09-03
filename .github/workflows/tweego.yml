@@ -61,18 +61,16 @@ jobs:
           echo "--- $HOME/bin/storyformats ---"
           ls -la "$HOME/bin/storyformats"
 
-      # Build directly (no --list-formats) with explicit format dirs
       - name: Build story → build/index.html
         shell: bash
         run: |
           set -euxo pipefail
           mkdir -p build
-          # Tweego searches current dir storyformats, program dir storyformats, and TWEEGO_PATH entries.
+          # we already copied SugarCube to both locations earlier
           export TWEEGO_PATH="$(pwd)/storyformats:$HOME/bin/storyformats"
-          tweego -f sugarcube-2 \
-                 --format-dir "$TWEEGO_PATH" \
-                 -o build/index.html src
+          tweego -f sugarcube-2 -o build/index.html src
           test -s build/index.html
+
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
