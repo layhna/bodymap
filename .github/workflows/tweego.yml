@@ -23,15 +23,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      # Early sanity check — prove we’re on the right commit
+      # Prove we're running the latest file
       - name: Debug (early)
         run: |
           echo "Commit: $GITHUB_SHA"
-          echo "Repo contents at start:"
           ls -la
 
       - name: Install Tweego
@@ -44,42 +41,44 @@ jobs:
           install -m 755 "$(find /tmp/tweego -type f -name tweego -print -quit)" "$HOME/bin/tweego"
           echo "$HOME/bin" >> "$GITHUB_PATH"
 
-      - name: Verify Tweego
-        run: tweego --version
-
-      # Fetch SugarCube and ensure it ends up exactly at formats/sugarcube-2
+      # Put SugarCube where Tweego will actually look: ./storyformats/sugarcube-2
       - name: Fetch SugarCube storyformat
         shell: bash
         run: |
           set -euxo pipefail
-          rm -rf formats
-          mkdir -p formats
+          rm -rf storyformats
+          mkdir -p storyformats
           curl -fsSL -o /tmp/sugarcube.zip "https://www.motoslave.net/sugarcube/download.php/2/sugarcube-${SUGARCUBE_VERSION}-for-twine-2.1-local.zip"
           unzip -q /tmp/sugarcube.zip -d /tmp/sczip
           SC_DIR="$(find /tmp/sczip -type d -name 'sugarcube-2' -print -quit)"
           test -n "$SC_DIR"
-          cp -a "$SC_DIR" formats/
-          test -f formats/sugarcube-2/format.js
+          cp -a "$SC_DIR" storyformats/
+          test -f storyformats/sugarcube-2/format.js
 
       - name: Debug layout
         run: |
           echo "PWD=$(pwd)"
-          echo "--- repo root ---"
           ls -la
-          echo "--- formats ---"
-          ls -la formats
-          echo "--- formats/sugarcube-2 ---"
-          ls -la formats/sugarcube-2
+          echo "--- storyformats ---"
+          ls -la storyformats
+          echo "--- sugarcube-2 ---"
+          ls -la storyformats/sugarcube-2
+
+      # Now it's safe to invoke Tweego (search dirs exist)
+      - name: Verify Tweego & list formats
+        shell: bash
+        run: |
+          export TWEEGO_PATH="$(pwd)/storyformats"
+          tweego --version
+          tweego --list-formats | sed -n '1,120p'
 
       - name: Build story → build/index.html
         shell: bash
         run: |
           set -euxo pipefail
+          export TWEEGO_PATH="$(pwd)/storyformats"
           mkdir -p build
-          export TWEEGO_FORMATS="$(pwd)/formats"
-          echo "TWEEGO_FORMATS=$TWEEGO_FORMATS"
-          tweego -f sugarcube-2 --format-dir "$TWEEGO_FORMATS" \
-                 -o build/index.html src
+          tweego -f sugarcube-2 -o build/index.html src
           test -s build/index.html
 
       - name: Upload Pages artifact
