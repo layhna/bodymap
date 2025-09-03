@@ -34,12 +34,19 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install Tweego
+        shell: bash
         run: |
+          set -euxo pipefail
           mkdir -p "$HOME/bin"
-          curl -fsSL -o tweego.zip "https://github.com/tmedwards/tweego/releases/download/v${TWEEGO_VERSION}/tweego-${TWEEGO_VERSION}-linux-x64.zip"
-          unzip -q tweego.zip -d "$HOME/bin"
+          curl -fsSL -o /tmp/tweego.zip "https://github.com/tmedwards/tweego/releases/download/v${TWEEGO_VERSION}/tweego-${TWEEGO_VERSION}-linux-x64.zip"
+          unzip -q /tmp/tweego.zip -d /tmp/tweego
+          # Move the binary to a predictable path (handles nested folders in the ZIP)
+          install -m 755 "$(find /tmp/tweego -type f -name tweego -print -quit)" "$HOME/bin/tweego"
           echo "$HOME/bin" >> "$GITHUB_PATH"
-          tweego --version
+
+      - name: Verify Tweego
+        run: tweego --version
+
 
       - name: Fetch SugarCube storyformat
         run: |
