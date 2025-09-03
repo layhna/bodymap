@@ -1,0 +1,374 @@
+:: StoryTitle
+Body Map
+
+
+:: StoryData
+{
+  "ifid": "22E28097-732C-4A02-93C1-85077E9D0EE5",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Body Map",
+  "zoom": 1
+}
+
+
+:: Arms {"position":"1100,200","size":"100,100"}
+Arms
+
+Wood
+
+Yang
+
+
+:: Bladder {"position":"600,400","size":"100,100"}
+Bladder
+
+Water
+
+Yang
+
+
+:: Body Map {"position":"900,0","size":"100,100"}
+Explore the Body
+
+<div class="settabs">
+
+<div><<link "Organs">>
+	<<set $bset = "Organs">>
+    <<set $bpiece = "selectpiece">>
+    <<redo>>
+   	<</link>></div>
+
+<div><<link "Skeleton">>
+	<<set $bset = "Skeleton">>    
+    <<set $bpiece = "selectpiece">>
+    <<redo>>
+    <</link>></div>
+
+<div><<link "Fluids">>
+	<<set $bset = "Fluids">>
+    <<set $bpiece = "selectpiece">>
+    <<redo>>
+    <</link>></div>
+
+</div>
+
+<<do>><<include $bset "div">><</do>>
+
+
+:: Feet {"position":"1200,200","size":"100,100"}
+Feet
+
+Metal
+
+Yang
+
+
+:: Gallbladder {"position":"500,400","size":"100,100"}
+Gallbladder
+
+Wood
+
+Yang
+
+
+:: Heart {"position":"700,200","size":"100,100"}
+Heart
+
+Fire
+
+Yin
+
+
+:: Kidneys {"position":"700,400","size":"100,100"}
+Kidneys
+
+Water
+
+Yin
+
+
+:: Large Intestine {"position":"600,500","size":"100,100"}
+Large Intestine
+
+Metal
+
+Yang
+
+
+:: Liver {"position":"500,300","size":"100,100"}
+Liver
+
+Wood
+
+Yin
+
+
+:: Lungs {"position":"600,200","size":"100,100"}
+Lungs
+
+Metal
+
+Yin
+
+
+:: Organs {"position":"600,100","size":"100,100"}
+<<nobr>>
+
+The Organs
+
+<div class="overbody">
+
+<div><<button "Pericardium">><<set $bpiece = "Pericardium">><<redo>><</button>></div>
+<div><<button "Lungs">><<set $bpiece = "Lungs">><<redo>><</button>></div>
+<div><<button "Heart">><<set $bpiece = "Heart">><<redo>><</button>></div>
+<div><<button "Liver">><<set $bpiece = "Liver">><<redo>><</button>></div>
+<div><<button "Stomach">><<set $bpiece = "Stomach">><<redo>><</button>></div>
+<div><<button "Spleen">><<set $bpiece = "Spleen">><<redo>><</button>></div>
+<div><<button "Gallbladder">><<set $bpiece = "Gallbladder">><<redo>><</button>></div>
+<div><<button "Bladder">><<set $bpiece = "Bladder">><<redo>><</button>></div>
+<div><<button "Kidneys">><<set $bpiece = "Kidneys">><<redo>><</button>></div>
+<div><<button "Large Intestine">><<set $bpiece = "Large Intestine">><<redo>><</button>></div>
+<div><<button "Small Intestine">><<set $bpiece = "Small Intestine">><<redo>><</button>></div>
+<div><<button "Triple Burner">><<set $bpiece = "Triple Burner">><<redo>><</button>></div>
+
+</div>
+
+<<do>><<include $bpiece "div">><</do>>
+
+<</nobr>>
+
+
+:: Pelvis {"position":"1000,200","size":"100,100"}
+Pelvis
+
+Water
+
+Yin
+
+
+:: Pericardium {"position":"500,200","size":"100,100"}
+Pericardium
+
+Fire
+
+Yin
+
+
+:: Skeleton {"position":"1100,100","size":"100,100"}
+<<nobr>>
+
+The Skeleton
+
+<div class="overbody">
+<div><<button "Arms">><<set $bpiece = "Arms">><<redo>><</button>></div>
+<div><<button "Pelvis">><<set $bpiece = "Pelvis">><<redo>><</button>></div>
+<div><<button "Feet">><<set $bpiece = "Feet">><<redo>><</button>></div>
+
+</div>
+
+<<do>><<include $bpiece "div">><</do>>
+
+<</nobr>>
+
+
+:: Small Intestine {"position":"500,500","size":"100,100"}
+Small Intestine
+
+Fire
+
+Yang
+
+
+:: Spleen {"position":"700,300","size":"100,100"}
+Spleen
+
+Earth
+
+Yin
+
+
+:: Stomach {"position":"600,300","size":"100,100"}
+!! 🌾 ''THE STOMACH''  
+''“The Alchemical Cauldron, the Welcomer, the Gate of Nourishment”''
+
+----
+!!! 🔑 SYSTEMIC + SYMBOLIC CORRESPONDENCES
+<table>
+	<thead><tr>
+		<th>Aspect</th><th>Correspondence</th>
+	</tr></thead>
+	<tbody><tr>
+		<td>''Element (TCM)''</td><td>Earth (Yang organ, paired with the Spleen)</td>
+	</tr><tr>
+		<td>''Yin/Yang''</td><td>Yang</td>
+	</tr><tr>
+		<td>''Season''</td><td>Late Summer or Transitions</td>
+	</tr><tr>
+		<td>''Emotion''</td><td>Appetite (for food, love, experience), Anxiety, or Disgust</td>
+	</tr><tr>
+		<td>''Sense Organ''</td><td>Mouth and taste</td>
+	</tr><tr>
+		<td>''Tissue''</td><td>Muscles of the abdomen</td>
+	</tr><tr>
+		<td>''Direction''</td><td>Center / Downward</td>
+	</tr><tr>
+		<td>''Color''</td><td>Yellow, Earth-toned</td>
+	</tr><tr>
+		<td>''Chakra''</td><td>Solar Plexus (action, digestion of power and identity)</td>
+	</tr><tr>
+		<td>''Alchemical/Mystic''</td><td>The Cauldron, The Hearth Fire, The Initiator of Alchemy, The Sacred Belly</td>
+	</tr></tbody>
+</table>
+----
+!! 🧠 FUNCTIONAL & ENERGETIC THEMES
+!!! In TCM
+* Receives ''food and drink'', breaks them down  
+* Begins transformation of nourishment into ''post-natal Qi''  
+* Sends ''pure essence to the Spleen'', impure downward  
+* Energetic direction is ''downward''—counterflow leads to ''nausea or anxiety''  
+* Known as the ''“sea of grain and water”'', it is the ''first gate of transformation''
+
+!!! Energetically
+* The ''first portal of emotional digestion''  
+* Linked to desire, appetite, receptivity  
+* Can symbolize how we ''welcome or reject life’s offerings''  
+* Deeply tied to issues of ''worthiness, self-image, and nourishment''
+
+----
+!! 🧬 CANCER AS A SYMPTOM (STOMACH)
+Cancer here often points symbolically to //profound difficulty in ''receiving'' or ''metabolizing'' life, love, or experience.//
+<table>
+	<thead><tr>
+		<th>Symptom / Condition</th><th>Symbolic Interpretation</th>
+	</tr></thead>
+	<tbody><tr>
+		<td>''Stomach cancer''</td><td>“I have taken in what was never mine—until it turned toxic.”</td>
+	</tr><tr>
+		<td>''Chronic gastritis / ulcers''</td><td>“I am burning inside from unspoken hunger, frustration, or resentment.”</td>
+	</tr><tr>
+		<td>''Reflux / heartburn''</td><td>“What I swallow rises back up—what I try to digest emotionally refuses to stay down.”</td>
+	</tr><tr>
+		<td>''Loss of appetite''</td><td>“I’ve lost the will to receive. Nothing feels safe or good anymore.”</td>
+	</tr><tr>
+		<td>''Overeating / bingeing''</td><td>“I’m trying to fill an inner emptiness that food can’t touch.”</td>
+	</tr></tbody>
+</table>
+
+> Cancer in the stomach often signals a ''deep, long-held trauma around nourishment and safety''—whether physical, emotional, or spiritual. It may reflect a ''life of swallowing pain'', forced submission, or a belief that “I must take this in, even if it harms me.”
+
+----
+!! 🧘 DISEASE AS MESSAGE
+<table>
+	<thead><tr>
+		<th>Physical Symptom</th><th>Message from the Alchemical Cauldron</th>
+	</tr></thead>
+	<tbody><tr>
+		<td>''Digestive pain / bloating''</td><td>“You are taking in more than you can process—slow down.”</td>
+	</tr><tr>
+		<td>''Nausea / reflux''</td><td>“What you are ingesting is not aligned with your truth.”</td>
+	</tr><tr>
+		<td>''Cravings or addictions''</td><td>“You are hungry for something deeper—your soul is unfed.”</td>
+	</tr><tr>
+		<td>''Eating disorders''</td><td>“Your relationship with worth and reception has been wounded.”</td>
+	</tr><tr>
+		<td>''Hiccups / spasms''</td><td>“There is a conflict between what you want and what you can accept.”</td>
+	</tr></tbody>
+</table>
+
+----
+!! 👤 PERSONIFIED ARCHETYPE: ''THE STOMACH AS THE INITIATOR OR HEARTHKEEPER''
+!!! Archetype:
+''The Cauldron'', ''The Alchemist'', ''The Receiving Womb''
+The Stomach is the ''initiating fire of nourishment''. If the Spleen is the Earth that absorbs and transforms, the Stomach is the ''open gate''—the space that says “Yes” to the world. It is the ''hearthfire of desire'', the ''welcomer of life’s experiences''.
+
+But it is vulnerable. It can be easily overwhelmed. And when the world becomes too much—or not enough—it turns that confusion inward, where it burns or stagnates.
+
+----
+!!! When Healthy:
+* Takes in experience with ''clarity and trust''  
+* Welcomes nourishment without guilt or fear  
+* Initiates digestion with ''strength and rhythm''  
+* Reflects a balanced appetite—both for food and for life  
+* Allows ''boundaries in receptivity'': knows when to say yes or no
+
+!!! When Imbalanced:
+<table>
+	<thead>tr>
+		<th>Symbolic State</th><th>Inner Narrative</th>
+	</tr></thead>
+	<tbody><tr>
+		<td>''Overeating / craving''</td><td>“I need more to feel full—but it never fills.”</td>
+	</tr><tr>
+		<td>''Rejecting nourishment''</td><td>“I am not worthy to receive. I must go without.”</td>
+	</tr><tr>
+		<td>''Indigestion / turmoil''</td><td>“What I’ve swallowed is burning me from the inside.”</td>
+	</tr><tr>
+		<td>''Anxious stomach''</td><td>“I’m afraid of what life will bring—I can’t let it in.”</td>
+	</tr><tr>
+		<td>''Emotional flatness''</td><td>“I’ve numbed my appetite. Everything tastes the same.”</td>
+	</tr></tbody>
+</table>
+
+!!! Emotional Narrative:
+> The Stomach remembers being fed poison—metaphorical or real. It remembers swallowing what it had no choice but to accept. And it still bears the heat of that unprocessed grief.  
+>  
+> When healed, it becomes ''the sacred hearth''—a place where life is welcomed, transmuted, and made holy through care and flame.
+
+----
+!! 🕯️ PRACTICES FOR STOMACH HEALING
+* ''Slow, mindful eating''—ritualize meals, focus on taste and gratitude  
+* ''Soothing herbs''—chamomile, fennel, marshmallow root, warm broths  
+* ''Belly massage''—clockwise circles to support motility  
+* ''Boundary visualization''—what is allowed to enter? What is not?  
+* ''Affirmations for worthiness''—“It is safe to receive. I am worthy of nourishment.”  
+* ''Digestive fire tending''—gentle spices, warmth, breath to the belly  
+
+----
+!! ✍️ SUMMARY
+> The Stomach is the ''sacred gate of reception'', the ''first alchemical crucible'' where life begins to become part of you. It demands respect, rhythm, and care.  
+>  
+> When it is healthy, your relationship to nourishment, worthiness, and appetite flows with joy and intelligence.  
+>  
+> When wounded, it becomes the place where you ''burn, stagnate, or reject the world''. Its healing lies in ''choosing what you take in'', and trusting yourself to digest it with love.
+
+
+:: StoryInit {"position":"0,0","size":"100,100"}
+<<set $bpiece to "selectpiece">>
+<<set $bset to "selectset">>
+
+
+:: Triple Burner {"position":"700,500","size":"100,100"}
+Triple Burner
+
+Fire
+
+Yang
+
+
+:: selectpiece {"position":"400,0","size":"100,100"}
+Select a piece to view
+
+
+:: selectset {"position":"300,0","size":"100,100"}
+Select a set to view
+
+
+:: StoryStylesheet [stylesheet]
+.settabs {
+  display: flex;
+  flex-direction: row;
+}
+
+.overbody {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+
+.overbody > div {
+  background-color: #f1f1f1;
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
